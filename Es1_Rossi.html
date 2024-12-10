@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es1 verifica JavaScript Rossi</title>
+</head>
+<body>
+        <table style="border: 1px solid black">
+            <tr> 
+                <td style="border: 1px solid black"><b>Codice Prenotazione</b></td>
+                <td style="border: 1px solid black"><input type="text" id="codice" placeholder="Inserisci il codice"></td>
+            </tr>
+            <tr> 
+                <td style="border: 1px solid black"><b>Numero di biglietti</b></td>
+                <td style="border: 1px solid black"><input type="number" id="biglietti" placeholder=""></td>
+            </tr>
+            <tr> 
+                <td style="border: 1px solid black"><button onClick="AggiungiPrenotazione()">Aggiungi Prenotazione</button></td>
+                <td style="border: 1px solid black"><button onClick="mostraPrenotazioni()">Mostra Prenotazioni</button></td>
+            </tr>
+        </table> 
+
+
+    <div id="risultato">
+
+    </div>
+    
+</body>
+<script>
+
+    var tabella = `<table style="border: 1px solid black">
+            <tr> 
+                <td style="border: 1px solid black"><b>Codice Prenotazione</b></td>
+                <td style="border: 1px solid black"><b>Numero Biglietti</b></td>
+                <td style="border: 1px solid black"><b>Importo Totale</b></td>
+            </tr>
+        `
+
+        var partecipanti = []
+
+    function AggiungiPrenotazione(){
+
+        function verificaDati(){
+            if(codice = ""){
+                alert("codice non inserito")
+            }if(biglietti<1 || biglietti == ""){
+                alert("biglietti non validi")
+            }   
+        }
+    
+        function calcolaImporto(){
+
+            let costo=20
+            let sconto=0
+            var importo=0
+
+            if(biglietti>=1 && biglietti<=4){
+
+                importo=Number(costo)*Number(biglietti);
+            }if(biglietti>=5 && biglietti<=9){
+
+                importo=Number(costo)*Number(biglietti);
+                sconto=Number(importo)*0.10;
+                importo=Number(importo)-Number(sconto);
+
+            }if(biglietti>10){
+                    
+                importo=Number(costo)*Number(biglietti);
+                sconto=Number(importo)*0.20;
+                importo=Number(importo)-Number(sconto);
+
+            } 
+
+            return Number(importo);
+       
+        }
+    
+        
+
+        var codice = document.getElementById("codice").value;
+        var biglietti = document.getElementById("biglietti").value;
+        verificaDati();
+        calcolaImporto();
+        partecipanti.push({codice:codice, biglietti:biglietti, importo:calcolaImporto()});
+
+        for(let partecipante of partecipanti){
+    
+            let dati = `<tr> 
+               <td style="border: 1px solid black">${partecipante.codice}</td>
+               <td style="border: 1px solid black">${partecipante.biglietti}</td>
+               <td style="border: 1px solid black">${partecipante.importo}</td>
+           </tr>`
+
+       
+        tabella += dati
+
+   }
+        
+        document.getElementById("codice").value = ""
+        document.getElementById("biglietti").value = ""
+
+
+}
+    
+
+    
+
+
+    
+
+    function mostraPrenotazioni(){
+
+        
+        tabella +=`</table>`
+        document.getElementById("risultato").innerHTML = tabella
+
+
+    }
+
+    
+
+
+</script>
+</html>
