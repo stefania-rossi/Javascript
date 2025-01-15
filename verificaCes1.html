@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+</head>
+<body>
+    <h1>Gestione biblioteca</h1>
+    <table style="border: 1px solid black">
+        <tr> 
+            <td style="border: 1px solid black"><b>ID utente</b></td>
+            <td style="border: 1px solid black"><input type="number" id="id" placeholder="Inserisci l'ID"></td>
+        </tr>
+        <tr> 
+            <td style="border: 1px solid black"><b>Titolo del libro</b></td>
+            <td style="border: 1px solid black"><input type="text" id="titolo" placeholder="Inserisci il titolo del libro"></td>
+        </tr>
+        <tr> 
+            <td style="border: 1px solid black"><b>Numero di giorni</b></td>
+            <td style="border: 1px solid black"><input type="number" id="giorni" placeholder="Inserisci il numero di giorni"></td>
+        </tr>
+        <tr> 
+            <td style="border: 1px solid black"><button onClick="addBooking()">Aggiungi Prenotazione</button></td>
+        </tr>
+    </table> 
+
+    <div id="risultato">
+        <!-- La tabella dinamica verrà mostrata qui -->
+    </div>
+    <div id="riepilogo">
+        <!-- Il totale delle prenotazioni con importo > 200€ verrà mostrato qui -->
+    </div>
+
+    <script>
+        // Array per memorizzare le prenotazioni
+        var prenotazioni= [];
+        var sommario = [];
+        // Funzione per aggiungere una prenotazione
+        function addBooking() {
+            // Recupero i dati dai campi input
+            var id = parseInt(document.getElementById("id").value);
+            var titolo = document.getElementById("titolo").value;
+            var  giorni = parseInt(document.getElementById("giorni").value);
+
+
+
+
+
+            // Verifica input
+            if (!titolo) {
+                alert("Codice non inserito");
+                return;
+            }
+            if (isNaN(id) || id <= 0) {
+                alert("Numero di id non valido");
+                return;
+            }
+            if (isNaN(giorni) || giorni <= 0) {
+                alert("Numero di giorni non valido");
+                return;
+            }
+
+
+            // Aggiungo la prenotazione all'array
+            prenotazioni.push({ id: id, titolo: titolo, giorni: giorni});
+
+            // Pulizia dei campi input
+            document.getElementById("id").value = "";
+            document.getElementById("titolo").value = "";
+            document.getElementById("giorni").value = "";
+
+            alert("Prenotazione aggiunta con successo!");
+
+        // Funzione per mostrare tutte le prenotazioni
+        function renderTable() {
+            if (prenotazioni.length === 0) {
+                document.getElementById("risultato").innerHTML = "<p>Nessuna prenotazione disponibile.</p>";
+                document.getElementById("totale").innerHTML = "";
+                return;
+            }
+
+            // Generazione tabella dinamica
+            let tabella = `<table style="border: 1px solid black">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid black">ID</th>
+                        <th style="border: 1px solid black">Titolo libro</th>
+                        <th style="border: 1px solid black">Numero giorni</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+
+            for (let prenotazione of prenotazioni) {
+                tabella += `<tr>
+                    <td style="border: 1px solid black">${prenotazione.id}</td>
+                    <td style="border: 1px solid black">${prenotazione.titolo}</td>
+                    <td style="border: 1px solid black">${prenotazione.giorni}</td>
+                </tr>`;
+
+            }
+
+            tabella += `</table>`;
+
+            // Mostro la tabella nel div risultato
+            document.getElementById("risultato").innerHTML = tabella;
+
+        }
+            function updateSummary(){
+
+                var riepilogo = ` <h2> --RIEPILOGO-- </h2>`
+
+                var a = false
+
+                for (let utente of sommario){
+                    if (id == utente.id){
+                        utente.giorni += parseInt(giorni)
+                        a = true
+                    }
+                }
+
+                    if(a == false){
+                        sommario.push({id:id, giorni:parseInt(giorni)})
+                    }
+
+                    for (let utente of sommario){
+
+                        riepilogo += ` <p> Utente ${utente.id}: ${utente.giorni} giorni </p>`
+                    }
+
+                    document.getElementById("riepilogo").innerHTML = riepilogo;
+
+                
+            }
+        
+    
+
+            renderTable();
+            updateSummary();
+        
+    }
+
+                
+                
+            
+
+
+
+            
+        
+        
+
+    
+
+    </script>
+</body>
+</html>
