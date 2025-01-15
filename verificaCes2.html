@@ -1,0 +1,38 @@
+<html>
+
+</html>
+<script>
+var budget = Number(prompt("Inserisci il tuo budget iniziale: "));
+if (budget=="" ||isNaN(budget) || budget==0){
+    var budget = Number(prompt("budget non valido, reinserisci! "))
+}
+
+calcola_budget()
+
+function calcola_budget(){
+
+    while (importo!=0){
+    var importo = Number(prompt("Inserisci una somma di denaro o inserisci '0' per terminare: "))
+    if (importo>0){
+        budget = budget - importo;
+        alert("Budget riamanente: " +budget)
+
+    } 
+    else if (importo == 0){
+        
+        alert("il tuo budget finale è: " +budget)
+
+    }
+
+}
+}
+    
+
+
+
+    
+
+
+
+
+</script>
