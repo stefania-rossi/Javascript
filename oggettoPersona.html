@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oggetto Persona</title>
+</head>
+<body>
+    <h1>Oggetto Persona</h1> 
+    <p id="dettagliPersona"></p>
+  
+    <script>
+    // Crea un oggetto persona con le seguenti proprietà: nome, cognome, annoNascita.
+    //Aggiungi un metodo calcolaEta() che restituisce l’età della persona in base all’anno corrente.
+    //Mostra il nome completo e l’età nella pagina. 
+        let persona = {
+            nome: "Stefania",
+            cognome: "Rossi",
+            annoNascita: 2007,
+
+            calcolaEta: function() {
+                let anno = new Date().getFullYear();
+                età = anno - persona.annoNascita;
+                return età
+            }
+        };
+
+        let nomeCompleto = `${persona.nome} ${persona.cognome}`;
+        let eta = persona.calcolaEta();
+
+        document.getElementById("dettagliPersona").textContent = `Nome completo: ${nomeCompleto}, Età: ${eta} anni`;
+    </script>
+</body>
+</html>
