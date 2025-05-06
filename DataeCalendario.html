@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data e Calendario</title>
+</head>
+<body>
+    <h1>Data e Calendario</h1>
+    <button onclick="dataOggi()">Mostra Data di Oggi</button>
+    <button onclick="calendario()">Trova Giorno della Settimana</button>
+
+    <div id="output"></div>
+
+    <script>
+        function dataOggi() {
+            let oggi = new Date();
+            let giorno = oggi.getDate()
+            let mese = oggi.getMonth() + 1;
+            let anno = oggi.getFullYear();
+            let dataDiOggi = `${giorno}/${mese}/${anno}`;
+            document.getElementById('output').innerText = `Data di oggi: ${dataDiOggi}`;
+        }
+
+        function calendario() {
+            let Data = prompt("Inserisci una data nel formato gg/mm/aaaa:");
+            if (!Data) {
+                document.getElementById('output').innerText = "Nessuna data inserita.";
+                return;
+            }
+
+            let data = new Date(Data);
+            if (isNaN(data)) {
+                document.getElementById('output').innerText = "Formato data non valido.";
+                return;
+            }
+
+            let giorniSettimana = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+            let giornoSettimana = giorniSettimana[data.getDay()];
+            document.getElementById('output').innerText = `Il giorno della settimana è: ${giornoSettimana}`;
+        }
+    </script>
+</body>
+</html>
